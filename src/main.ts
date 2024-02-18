@@ -1,11 +1,14 @@
 import * as THREE from "three";
-import { PerspectiveCamera } from "three";
+import {DataTexture, PerspectiveCamera} from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import {RGBELoader} from "three/examples/jsm/loaders/RGBELoader.js";
 
 function main() {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;
   const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.8;
 
   const fov = 45;
   const aspect = 2; // the canvas default
@@ -109,31 +112,43 @@ function main() {
   }
 
   {
-    const loader = new THREE.CubeTextureLoader();
-    const imgs = [
-      "skybox/x-pos.jpg",
-      "skybox/x-neg.jpg",
-      "skybox/y-pos.jpg",
-      "skybox/y-neg.jpg",
-      "skybox/z-pos.jpg",
-      "skybox/z-neg.jpg",
-    ];
-    const texture = loader.load(imgs);
-    const shader = THREE.ShaderLib["cube"];
-    shader.uniforms["tCube"].value = texture;
-    const material = new THREE.ShaderMaterial({
-      fragmentShader: shader.fragmentShader,
-      vertexShader: shader.vertexShader,
-      uniforms: shader.uniforms,
-      depthWrite: false,
-      side: THREE.BackSide,
+    const loader = new RGBELoader();
+    const url = "skybox/kloppenheim_02_puresky_4k.hdr";
+    const textures = loader.load(url, (texture: DataTexture) => {
+      texture.mapping = THREE.EquirectangularReflectionMapping;
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.needsUpdate = false;
     });
-    const mesh = new THREE.Mesh(
-      new THREE.BoxGeometry(100000, 100000, 100000),
-      material,
-    );
-    scene.add(mesh);
+    scene.background = textures;
+    scene.environment = textures;
   }
+//  {
+//    const loader = new THREE.CubeTextureLoader();
+//    const imgs = [
+//      "skybox/x-pos.jpg",
+//      "skybox/x-neg.jpg",
+//      "skybox/y-pos.jpg",
+//      "skybox/y-neg.jpg",
+//      "skybox/z-pos.jpg",
+//      "skybox/z-neg.jpg",
+//    ];
+//    const texture = loader.load(imgs);
+//    const shader = THREE.ShaderLib["cube"];
+//    shader.uniforms["tCube"].value = texture;
+//    const material = new THREE.ShaderMaterial({
+//      fragmentShader: shader.fragmentShader,
+//      vertexShader: shader.vertexShader,
+//      uniforms: shader.uniforms,
+//      depthWrite: false,
+//      side: THREE.BackSide,
+//    });
+//    const mesh = new THREE.Mesh(
+//      new THREE.BoxGeometry(100000, 100000, 100000),
+//      material,
+//    );
+//    scene.add(mesh);
+//  }
   function resizeRendererToDisplaySize(renderer: THREE.Renderer) {
     const canvas = renderer.domElement;
     const width = canvas.clientWidth;
