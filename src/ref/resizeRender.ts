@@ -1,5 +1,4 @@
 import * as THREE from "three";
-
 export function resizeRendererToDisplaySize(renderer: THREE.Renderer) {
   const canvas = renderer.domElement;
   const width = canvas.clientWidth;
@@ -8,6 +7,5 @@ export function resizeRendererToDisplaySize(renderer: THREE.Renderer) {
   if (needResize) {
     renderer.setSize(width, height, false);
   }
-
   return needResize;
 }

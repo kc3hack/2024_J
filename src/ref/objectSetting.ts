@@ -1,5 +1,4 @@
 import * as THREE from "three";
-
 export function objectSetting(scene: THREE.Scene) {
   const color = 0xffffff;
   const intensity = 2.5;
