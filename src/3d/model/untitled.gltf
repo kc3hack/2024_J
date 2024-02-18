@@ -1,6 +1,5 @@
 {
 	"asset":{
-		"copyright":"me",
 		"generator":"Khronos glTF Blender I/O v4.0.44",
 		"version":"2.0"
 	},
@@ -19,7 +18,7 @@
 			"name":"Plane",
 			"scale":[
 				40,
-				0,
+				1,
 				40
 			]
 		}
@@ -27,21 +26,21 @@
 	"materials":[
 		{
 			"doubleSided":true,
-			"name":"Material",
+			"name":"Material.001",
 			"pbrMetallicRoughness":{
 				"baseColorFactor":[
-					0.8002997636795044,
-					0.12980040907859802,
-					0.4100556969642639,
+					0.8002356290817261,
+					0.20859688520431519,
+					0.18445256352424622,
 					1
 				],
-				"roughnessFactor":0.40453073382377625
+				"roughnessFactor":0.17100977897644043
 			}
 		}
 	],
 	"meshes":[
 		{
-			"name":"Plane.002",
+			"name":"Plane",
 			"primitives":[
 				{
 					"attributes":{
@@ -120,7 +119,7 @@
 	"buffers":[
 		{
 			"byteLength":140,
-			"uri":"KC3.bin"
+			"uri":"untitled.bin"
 		}
 	]
 }

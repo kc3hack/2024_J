@@ -710,3 +710,14 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
+src/3d/model/plane.bin
+
+src/3d/model/box.gltf
+
+src/3d/model/plane.gltf
+
+src/3d/model/untitled.bin
+
+src/3d/model/untitled.gltf
+
+src/3d/model/box.bin
