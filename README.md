@@ -1,5 +1,4 @@
-# プロダクト名 
-Dokonan YO
+# Dokonan YO (どこなん YO)  
 
 ![どこなんYo](https://kc3.me/cms/wp-content/uploads/2023/11/2b1b6d9083182c0ce0aeb60000b4d7a7.png)
 
