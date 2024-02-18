@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import {PerspectiveCamera} from "three";
-import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
-import {OrbitControls} from "three/addons/controls/OrbitControls.js";
+import { PerspectiveCamera } from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 function main() {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;
@@ -109,8 +109,15 @@ function main() {
   }
 
   {
-    const loader= new THREE.CubeTextureLoader;
-    const imgs = ["skybox/x-pos.jpg", "skybox/x-neg.jpg", "skybox/y-pos.jpg", "skybox/y-neg.jpg", "skybox/z-pos.jpg", "skybox/z-neg.jpg"];
+    const loader = new THREE.CubeTextureLoader();
+    const imgs = [
+      "skybox/x-pos.jpg",
+      "skybox/x-neg.jpg",
+      "skybox/y-pos.jpg",
+      "skybox/y-neg.jpg",
+      "skybox/z-pos.jpg",
+      "skybox/z-neg.jpg",
+    ];
     const texture = loader.load(imgs);
     const shader = THREE.ShaderLib["cube"];
     shader.uniforms["tCube"].value = texture;
@@ -121,7 +128,10 @@ function main() {
       depthWrite: false,
       side: THREE.BackSide,
     });
-    const mesh = new THREE.Mesh(new THREE.BoxGeometry(100000,100000,100000), material);
+    const mesh = new THREE.Mesh(
+      new THREE.BoxGeometry(100000, 100000, 100000),
+      material,
+    );
     scene.add(mesh);
   }
   function resizeRendererToDisplaySize(renderer: THREE.Renderer) {
