@@ -6,11 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="src/style.css" />
     <title>ドコナンYO</title>
+
   </head>
   <body>
 
   <div id="app"><canvas id="c"></canvas></div>
-
+  <script type="importmap">
+      {
+          "imports": {
+              "three": "../build/three.module.js",
+              "three/addons/": "./jsm/"
+          }
+      }
+  </script>
     <script type="module" src="/src/main.ts">
     </script>
   </body>

@@ -591,7 +591,7 @@ ServiceFabricBackup/
 # Microsoft Fakes
 FakesAssemblies/
 
-# GhostDoc plugin setting file
+# GhostDoc plugin setting.ts file
 *.GhostDoc.xml
 
 # Node.js Tools for Visual Studio
