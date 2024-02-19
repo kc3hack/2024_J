@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { resizeRendererToDisplaySize } from "./ref/resizeRender.ts";
-import { Road } from "./ref/ground/road.ts";
+import { resizeRendererToDisplaySize } from "../../../ref/resizeRender.ts";
+import { Road } from "../../../ref/ground/road.ts";
 
 function main() {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;

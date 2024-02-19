@@ -22,7 +22,7 @@ export function Road() {
   }
   {
     const gltfLoader = new GLTFLoader();
-    const url = "src/3d/model/KC3.gltf";
+    const url = "../../../../3d/model/KC3.gltf";
     gltfLoader.load(url, (gltf) => {
       const root = gltf.scene;
       scene.add(root);
