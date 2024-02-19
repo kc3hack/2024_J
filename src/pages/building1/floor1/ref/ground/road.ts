@@ -1,12 +1,13 @@
-import { objectSetting } from "../objectSetting";
+
 import * as THREE from "three";
-import { frameArea } from "../frameArea";
-import { resizeRendererToDisplaySize } from "../resizeRender";
+import { frameArea } from "../frameArea.ts";
+import { resizeRendererToDisplaySize } from "../resizeRender.ts";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import {objectSetting} from '../objectSetting.ts'
 export function Road() {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;
-  const glftRenderer = new THREE.WebGLRenderer({ antialias: true, canvas });
+  const gltfRenderer = new THREE.WebGLRenderer({ antialias: true, canvas });
   const fov = 45;
   const aspect = 2; // the canvas default
   const near = 0.1;
@@ -22,7 +23,7 @@ export function Road() {
   }
   {
     const gltfLoader = new GLTFLoader();
-    const url = "../../../../3d/model/KC3.gltf";
+    const url = "/src/3d/model/KC3.gltf";
     gltfLoader.load(url, (gltf) => {
       const root = gltf.scene;
       scene.add(root);
@@ -35,16 +36,17 @@ export function Road() {
       controls.update();
     });
   }
-  function glftRender() {
-    if (resizeRendererToDisplaySize(glftRenderer)) {
-      const canvas = glftRenderer.domElement;
+  function gltfRender() {
+    if (resizeRendererToDisplaySize(gltfRenderer)) {
+      const canvas = gltfRenderer.domElement;
       camera.aspect = canvas.clientWidth / canvas.clientHeight;
       camera.updateProjectionMatrix();
     }
 
-    glftRenderer.render(scene, camera);
+    gltfRenderer.render(scene, camera);
 
-    requestAnimationFrame(glftRender);
+    requestAnimationFrame(gltfRender);
   }
-  requestAnimationFrame(glftRender);
+  requestAnimationFrame(gltfRender);
 }
+

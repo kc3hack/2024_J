@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { resizeRendererToDisplaySize } from "../../../ref/resizeRender.ts";
-import { Road } from "../../../ref/ground/road.ts";
+import {Road} from "./ref/ground/road.ts";
+
 
 function main() {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;
@@ -27,12 +27,8 @@ function main() {
     const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
     scene.add(light);
   }
+
   function render() {
-    if (resizeRendererToDisplaySize(renderer)) {
-      const canvas = renderer.domElement;
-      camera.aspect = canvas.clientWidth / canvas.clientHeight;
-      camera.updateProjectionMatrix();
-    }
 
     renderer.render(scene, camera);
 
@@ -40,7 +36,10 @@ function main() {
   }
 
   requestAnimationFrame(render);
+
 }
 
 main();
 Road();
+
+
