@@ -32,4 +32,6 @@
 three.js
 nginx
 cloudflared
-
+Vite
+OpenGL
+Blender
