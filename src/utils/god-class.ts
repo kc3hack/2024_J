@@ -3,8 +3,8 @@ import * as THREE from "three";
 export class GPSWrap {
   gps_origin: THREE.Vector2;
   map_origin: THREE.Vector2;
-  scale1: number; // gps / map
-  scale2: number; // map / gps
+  scale1: THREE.Vector2; // gps / map
+  scale2: THREE.Vector2; // map / gps
   gps_now: THREE.Vector2; // (lat, lon)
   constructor(
     gps_origin: THREE.Vector2,
@@ -33,23 +33,24 @@ export class GPSWrap {
     origin_B: THREE.Vector2,
     remote_A: THREE.Vector2,
     remote_B: THREE.Vector2,
-  ): number {
-    const origin_scale = origin_A.distanceTo(origin_B);
-    const remote_scale = remote_A.distanceTo(remote_B);
-    return origin_scale / remote_scale;
+  ): THREE.Vector2{
+    const origin_vector = origin_B.clone().sub(origin_A);
+    const remote_vector = remote_B.clone().sub(remote_A);
+    return new THREE.Vector2(origin_vector.x / remote_vector.x, origin_vector.y / remote_vector.y);
+
   }
   public gpsToMap(gps: THREE.Vector2): THREE.Vector2 {
     return gps
       .clone()
       .sub(this.gps_origin)
-      .multiplyScalar(this.scale1)
+      .multiply(this.scale1)
       .add(this.map_origin);
   }
   public mapToGps(map: THREE.Vector2): THREE.Vector2 {
     return map
       .clone()
       .sub(this.map_origin)
-      .multiplyScalar(this.scale2)
+      .multiply(this.scale2)
       .add(this.gps_origin);
   }
   public getGPSPos(): THREE.Vector2 {
