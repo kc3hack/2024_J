@@ -1,12 +1,11 @@
 # プロダクト名 
-<!-- プロダクト名に変更してください -->
+Dokonan YO
 
-![プロダクト名](https://kc3.me/cms/wp-content/uploads/2023/11/2b1b6d9083182c0ce0aeb60000b4d7a7.png)
-<!-- プロダクト名・イメージ画像を差し変えてください -->
+![どこなんYo](https://kc3.me/cms/wp-content/uploads/2023/11/2b1b6d9083182c0ce0aeb60000b4d7a7.png)
 
 
 ## チーム名
-チーム○ XXXX
+チームJ 安岡家
 <!-- チームIDとチーム名を入力してください -->
 
 
@@ -31,11 +30,7 @@
 
 
 ## 使用技術
+three.js
+nginx
+cloudflared
 
-<!-- 使用技術を入力してください -->
-
-
-<!--
-markdownの記法はこちらを参照してください！
-https://docs.github.com/ja/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
--->
