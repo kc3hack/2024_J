@@ -20,6 +20,8 @@ export function Road() {
   controls.update();
   const scene = new THREE.Scene();
   drawSkybox(scene);
+  const textureLoader = new THREE.TextureLoader();
+  const texture = textureLoader.load("/public/umeda1.png");
   {
     objectSetting(scene);
   }
@@ -28,6 +30,11 @@ export function Road() {
     const url = "/public/Field.gltf";
     gltfLoader.load(url, (gltf) => {
       const root = gltf.scene;
+      root.traverse(function (child: THREE.Object3D) {
+        if ((<THREE.Mesh>child).isMesh) {
+          (<THREE.Mesh>child).material.map = texture;
+        }
+      });
       scene.add(root);
       const box = new THREE.Box3().setFromObject(root);
       const boxSize = box.getSize(new THREE.Vector3()).length();
