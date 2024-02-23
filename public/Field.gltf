@@ -28,8 +28,10 @@
 			"doubleSided":true,
 			"name":"Material.003",
 			"pbrMetallicRoughness":{
+
 				"metallicFactor":0,
 				"roughnessFactor":0.49837133288383484
+
 			}
 		}
 	],
