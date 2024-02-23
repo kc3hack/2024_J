@@ -26,6 +26,7 @@
     "vite": "^5.1.0"
   },
   "dependencies": {
+    "fast-csv": "^5.0.1",
     "three": "^0.161.0"
   },
   "pre-commit": [
