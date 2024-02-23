@@ -6,13 +6,14 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { objectSetting } from "../objectSetting.ts";
 import { drawSkybox } from "../../../../../utils/god-class.ts";
 import { Object3D, Texture } from "three";
+import { Swipe } from "../../../../../utils/swipe.ts";
 
 interface Material {
   map?: Texture;
 }
 
-export function Road() {
-  const canvas = document.querySelector("#c") as HTMLCanvasElement;
+export function Road(query: string, gltfURL: string, pageURL: string) {
+  const canvas = document.querySelector(query) as HTMLCanvasElement;
   const gltfRenderer = new THREE.WebGLRenderer({ antialias: true, canvas });
   const fov = 45;
   const aspect = 2; // the canvas default
@@ -25,8 +26,9 @@ export function Road() {
   controls.update();
   const scene = new THREE.Scene();
   drawSkybox(scene);
+  Swipe(pageURL);
   const textureLoader = new THREE.TextureLoader();
-  const texture = textureLoader.load("/public/umeda1.png");
+  const texture = textureLoader.load(gltfURL);
   {
     objectSetting(scene);
   }
