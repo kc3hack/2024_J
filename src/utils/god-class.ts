@@ -3,8 +3,6 @@ import * as THREE from "three";
 import * as fs from "fs";
 import { parse } from "@fast-csv/parse";
 
-
-
 export class GPSWrap {
   gps_origin: THREE.Vector2;
   map_origin: THREE.Vector2;
@@ -89,9 +87,9 @@ export type edge = {
 type vec2 = { x: number; y: number };
 
  /*
- * vec2 = [lat, lon]
- * return: vec2[] = [[lat, lon], ...], i = node number
- */
+  * vec2 = [lat, lon]
+  * return: vec2[] = [[lat, lon], ...], i = node number
+  */
 export async function getMapPair(path: string): Promise<vec2[]> {
   const gps: vec2[] = [];
   fs.createReadStream(path)
@@ -131,7 +129,7 @@ export async function getCorrespond(path: string): Promise<[number, number][]> {
 }
 /*
  * using correspond and gps, return graph
- *graph: edge[from][] = {to, weight}
+ * graph: edge[from][] = {to, weight}
  */
 export async function toGraph(
   gps: vec2[],
