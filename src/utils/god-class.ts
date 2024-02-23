@@ -90,7 +90,7 @@ export class GPSWrap {
     return pos;
   }
   public getMapPos(): THREE.Vector2 {
-    return gpsToMap(getGPSPos());
+    return this.gpsToMap(this.getGPSPos());
   }
 }
 
