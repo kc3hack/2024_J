@@ -89,6 +89,9 @@ export class GPSWrap {
     navigator.geolocation.getCurrentPosition(Ok, Ng);
     return pos;
   }
+  public getMapPos(): THREE.Vector2 {
+    return gpsToMap(getGPSPos());
+  }
 }
 
 export type edge = {
