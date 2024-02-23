@@ -26,9 +26,11 @@ export function Road(query: string, gltfURL: string, pageURL: string) {
   controls.update();
   const scene = new THREE.Scene();
   drawSkybox(scene);
+
   Swipe(pageURL);
   const textureLoader = new THREE.TextureLoader();
   const texture = textureLoader.load(gltfURL);
+
   {
     objectSetting(scene);
   }
