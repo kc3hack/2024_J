@@ -1,8 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import {Road} from "./ref/ground/road.ts";
-
-
+import { Road } from "./ref/ground/road.ts";
 function main() {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;
   const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
@@ -12,13 +10,10 @@ function main() {
   const far = 100;
   const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
   camera.position.set(0, 10, 20);
-
   const controls = new OrbitControls(camera, canvas);
   controls.target.set(0, 5, 0);
   controls.update();
-
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color("black");
 
   {
     const skyColor = 0xb1e1ff; // light blue
@@ -29,17 +24,13 @@ function main() {
   }
 
   function render() {
-
     renderer.render(scene, camera);
 
     requestAnimationFrame(render);
   }
 
   requestAnimationFrame(render);
-
 }
 
 main();
 Road();
-
-

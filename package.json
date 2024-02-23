@@ -13,6 +13,7 @@
     "format:fix": "prettier --write '**/*.{ts,js}'"
   },
   "devDependencies": {
+    "@types/node": "^20.11.19",
     "@types/three": "^0.161.2",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",

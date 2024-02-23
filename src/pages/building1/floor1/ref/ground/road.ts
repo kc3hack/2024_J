@@ -1,10 +1,11 @@
-
 import * as THREE from "three";
 import { frameArea } from "../frameArea.ts";
 import { resizeRendererToDisplaySize } from "../resizeRender.ts";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import {objectSetting} from '../objectSetting.ts'
+import { objectSetting } from "../objectSetting.ts";
+import { drawSkybox } from "../../../../../utils/god-class.ts";
+
 export function Road() {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;
   const gltfRenderer = new THREE.WebGLRenderer({ antialias: true, canvas });
@@ -18,12 +19,13 @@ export function Road() {
   controls.target.set(0, 5, 0);
   controls.update();
   const scene = new THREE.Scene();
+  drawSkybox(scene);
   {
     objectSetting(scene);
   }
   {
     const gltfLoader = new GLTFLoader();
-    const url = "/src/3d/model/KC3.gltf";
+    const url = "/public/Field.gltf";
     gltfLoader.load(url, (gltf) => {
       const root = gltf.scene;
       scene.add(root);
@@ -49,4 +51,3 @@ export function Road() {
   }
   requestAnimationFrame(gltfRender);
 }
-
