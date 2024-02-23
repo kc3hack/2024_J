@@ -95,7 +95,6 @@ export class GPSWrap {
 }
 
 export type edge = {
-  from: number;
   to: number;
   weight: number;
 };
@@ -156,8 +155,11 @@ export async function toGraph(
   for (let i = 0; i < correspond.length; i++) {
     const from = correspond[i][0];
     const to = correspond[i][1];
-    const weight = gps[from].x - gps[to].x + gps[from].y - gps[to].y;
-    graph[from].push({ from, to, weight });
+    const x = gps[from].x - gps[to].x;
+    const y = gps[from].y - gps[to].y;
+    const weight = (x > 0 ? x : -x) + (y > 0 ? y : -y);
+    graph[from].push({ to: to, weight });
+    graph[to].push({ to: from, weight });
   }
   return graph;
 }
