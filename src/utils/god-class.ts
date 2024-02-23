@@ -105,9 +105,9 @@ type vec2 = { x: number; y: number };
  * vec2 = [lat, lon]
  * return: vec2[] = [[lat, lon], ...], i = node number
  */
-export async function getMapPair(): Promise<vec2[]> {
+export async function getMapPair(path: string): Promise<vec2[]> {
   const gps: vec2[] = [];
-  fs.createReadStream("gps.csv")
+  fs.createReadStream(path)
     .pipe(parse())
     .on("data", (row) => {
       gps.push({ x: row[0], y: row[1] });
@@ -126,9 +126,9 @@ export async function getMapPair(): Promise<vec2[]> {
  * correspond: [from, to], csv = from, to
  * return: [from, to][]
  */
-export async function getCorrespond(): Promise<[number, number][]> {
+export async function getCorrespond(path: string): Promise<[number, number][]> {
   const correspond: [number, number][] = [];
-  fs.createReadStream("correspond.csv")
+  fs.createReadStream(path)
     .pipe(parse())
     .on("data", (row) => {
       correspond.push([row[0], row[1]]);
