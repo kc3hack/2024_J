@@ -1,6 +1,21 @@
 import * as THREE from "three";
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
+import { DataTexture } from "three";
 import * as fs from "fs";
 import { parse } from "@fast-csv/parse";
+
+export function drawSkybox(scene: THREE.Scene) {
+  const loader = new RGBELoader();
+  const url = "/skybox/kloppenheim_02_puresky_4k.hdr";
+  const textures = loader.load(url, (texture: DataTexture) => {
+    texture.mapping = THREE.EquirectangularReflectionMapping;
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.needsUpdate = false;
+  });
+  scene.background = textures;
+  scene.environment = textures;
+}
 
 export class GPSWrap {
   gps_origin: THREE.Vector2;
@@ -82,15 +97,6 @@ export type edge = {
   weight: number;
 };
 type vec2 = { x: number; y: number };
-/*
- GPS and Map-point corsponding function
- load gps.csv and calculate weight, memorize it.
- connecting nodes are in correspoond.csv
- gps.csv is a file that contains the latitude and longitude of the map point.
- lat, lon, map_x, map_y
-    35.6895, 139.6917, 0, 0
- getGraph() : edge[], returning the graph of the map point.
- */
 
 /*
  * vec2 = [lat, lon]
@@ -152,42 +158,3 @@ export async function toGraph(
   }
   return graph;
 }
-
-// const correspond: [number, number][] = [];
-// fs.createReadStream('correspond.csv')
-//     .pipe(parse())
-//     .on('data', (row) => {
-//       correspond.push([row[0], row[1]]);
-//     })
-//     .on('end', () => {
-//       console.log(correspond);
-//     })
-//     .on('error', (err) => {
-//       console.error(err);
-//       throw err;
-//     });
-// return correspond;
-// graph: edge[from][] = {to, weight}
-//export async function toGraph(gps: vec2[], correspond: [number, number][]): Promise<edge[][]> {
-//    const graph: edge[][] = [];
-//    for (let i = 0; i < gps.length; i++) {
-//        graph[i] = [];
-//    }
-//    for (let i = 0; i < correspond.length; i++) {
-//        const from = correspond[i][0];
-//        const to = correspond[i][1];
-//        const weight = gps[from].x - gps[to].x + gps[from].y - gps[to].y;
-//        graph[from].push({from, to, weight});
-//    }
-//    return graph;
-//}
-
-//const graph: edge[] = [];
-//correspond.forEach((pair) => {
-//  const from = pair[0];
-//  const to = pair[1];
-//  const weight = // L2 norm
-//      Math.sqrt(Math.pow((gps[from].x - gps[to].x), 2) + Math.pow((gps[from].y - gps[to].y), 2));
-//  graph.push({ from: from, to: to, weight: weight });
-//})
-//return graph;
