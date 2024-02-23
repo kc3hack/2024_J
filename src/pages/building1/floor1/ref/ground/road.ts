@@ -5,6 +5,11 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { objectSetting } from "../objectSetting.ts";
 import { drawSkybox } from "../../../../../utils/god-class.ts";
+import { Object3D, Texture } from "three";
+
+interface Material {
+  map?: Texture;
+}
 
 export function Road() {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;
@@ -30,9 +35,9 @@ export function Road() {
     const url = "/public/Field.gltf";
     gltfLoader.load(url, (gltf) => {
       const root = gltf.scene;
-      root.traverse(function (child: THREE.Object3D) {
+      root.traverse(function (child: Object3D) {
         if ((<THREE.Mesh>child).isMesh) {
-          (<THREE.Mesh>child).material.map = texture;
+          (<Material>(<THREE.Mesh>child).material).map = texture;
         }
       });
       scene.add(root);
