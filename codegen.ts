@@ -1,7 +1,5 @@
-import type { CodegenConfig } from "@graphql-codegen/cli";
-import "dotenv/config.js";
 
-console.log(process.env);
+import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
   overwrite: true,
@@ -22,9 +20,9 @@ const config: CodegenConfig = {
       plugins: [],
     },
     "./graphql.schema.json": {
-      plugins: ["introspection"],
-    },
-  },
+      plugins: ["introspection"]
+    }
+  }
 };
 
 export default config;

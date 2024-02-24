@@ -1,7 +1,6 @@
 import { Vector2 } from "three";
-import { getGQLClient } from "./gqlClient.ts";
-import { GetMapPairDocument, GetCorrespondDocument } from "../gql/graphql.ts";
-import "dotenv/config.js";
+import {GetCorrespondDocument, GetMapPairDocument} from "../gql/graphql.ts";
+import {buildGQLClient} from "./gqlClient.ts";
 
 export class GPSWrap {
   gps_origin: Vector2;
@@ -92,7 +91,7 @@ type vec2 = { x: number; y: number };
  */
 export async function getMapPair(floor_id: number): Promise<vec2[]> {
   const gps: vec2[] = [];
-  const client = getGQLClient();
+  const client = await buildGQLClient();
   const data = await client.request(GetMapPairDocument, { floor: floor_id });
   data.GuidingNodes.forEach((node) => {
     gps[node.id] = { x: node.lat, y: node.lon };
@@ -108,7 +107,7 @@ export async function getCorrespond(
   floor_id: number,
 ): Promise<[number, number][]> {
   const correspond: [number, number][] = [];
-  const client = getGQLClient();
+  const client = await buildGQLClient();
   const data = await client.request(GetCorrespondDocument, { floor: floor_id });
   data.point_relation.forEach((relation) => {
     correspond.push([relation.rFrom.id, relation.rTo.id]);

@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Road } from "./ref/ground/road.ts";
+import { getCorrespond, getGraph, getMapPair } from "../../../utils/gps.ts";
 
 const gltfURL: string = "/public/umeda1.png";
 const prevURL: string | null = null;
@@ -27,6 +28,9 @@ function main() {
 
   requestAnimationFrame(render);
 }
-
+const t = await getMapPair(1);
+const u = await getCorrespond(1);
+const v = await getGraph(t, u);
+console.log(t, u, v);
 main();
 Road(gltfURL, prevURL, nextURL);
