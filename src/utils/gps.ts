@@ -1,19 +1,19 @@
-import * as THREE from "three";
+import { Vector2 } from "three";
 
 import * as fs from "fs";
 import { parse } from "@fast-csv/parse";
 
 export class GPSWrap {
-  gps_origin: THREE.Vector2;
-  map_origin: THREE.Vector2;
-  scale1: THREE.Vector2; // gps / map
-  scale2: THREE.Vector2; // map / gps
-  gps_now: THREE.Vector2; // (lat, lon)
+  gps_origin: Vector2;
+  map_origin: Vector2;
+  scale1: Vector2; // gps / map
+  scale2: Vector2; // map / gps
+  gps_now: Vector2; // (lat, lon)
   constructor(
-    gps_origin: THREE.Vector2,
-    gps_point: THREE.Vector2,
-    map_origin: THREE.Vector2,
-    map_point: THREE.Vector2,
+    gps_origin: Vector2,
+    gps_point: Vector2,
+    map_origin: Vector2,
+    map_point: Vector2,
   ) {
     this.gps_origin = gps_origin;
     this.map_origin = map_origin;
@@ -32,40 +32,40 @@ export class GPSWrap {
     this.gps_now = this.getGPSPos();
   }
   private static calculateScale(
-    origin_A: THREE.Vector2,
-    origin_B: THREE.Vector2,
-    remote_A: THREE.Vector2,
-    remote_B: THREE.Vector2,
-  ): THREE.Vector2 {
+    origin_A: Vector2,
+    origin_B: Vector2,
+    remote_A: Vector2,
+    remote_B: Vector2,
+  ): Vector2 {
     const origin_vector = origin_B.clone().sub(origin_A);
     const remote_vector = remote_B.clone().sub(remote_A);
-    return new THREE.Vector2(
+    return new Vector2(
       origin_vector.x / remote_vector.x,
       origin_vector.y / remote_vector.y,
     );
   }
-  public gpsToMap(gps: THREE.Vector2): THREE.Vector2 {
+  public gpsToMap(gps: Vector2): Vector2 {
     return gps
       .clone()
       .sub(this.gps_origin)
       .multiply(this.scale1)
       .add(this.map_origin);
   }
-  public mapToGps(map: THREE.Vector2): THREE.Vector2 {
+  public mapToGps(map: Vector2): Vector2 {
     return map
       .clone()
       .sub(this.map_origin)
       .multiply(this.scale2)
       .add(this.gps_origin);
   }
-  public getGPSPos(): THREE.Vector2 {
-    let pos: THREE.Vector2;
-    pos = new THREE.Vector2(Infinity, Infinity);
+  public getGPSPos(): Vector2 {
+    let pos: Vector2;
+    pos = new Vector2(Infinity, Infinity);
     if (!navigator.geolocation) throw new Error("GPS is not available");
     const Ok = (position: GeolocationPosition) => {
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
-      pos = this.gps_now = new THREE.Vector2(lat, lon);
+      pos = this.gps_now = new Vector2(lat, lon);
       console.log(`${lat}, ${lon}`);
     };
     const Ng = () => {
@@ -75,7 +75,7 @@ export class GPSWrap {
     navigator.geolocation.getCurrentPosition(Ok, Ng);
     return pos;
   }
-  public getMapPos(): THREE.Vector2 {
+  public getMapPos(): Vector2 {
     return this.gpsToMap(this.getGPSPos());
   }
 }

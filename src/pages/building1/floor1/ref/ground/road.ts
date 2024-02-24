@@ -4,7 +4,7 @@ import { resizeRendererToDisplaySize } from "../resizeRender.ts";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { objectSetting } from "../objectSetting.ts";
-import {drawSkybox} from "../../../../../utils/Skybox.ts";
+import { drawSkybox } from "../../../../../utils/Skybox.ts";
 import { Object3D, Texture } from "three";
 
 interface Material {
