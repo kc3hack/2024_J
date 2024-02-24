@@ -1,5 +1,5 @@
 export function Swipe(PageURL: string) {
-  const minimumDistance = 10;
+  const minimumDistance = 200;
   let startX = 0;
   let startY = 0;
   let endX = 0;
