@@ -86,10 +86,10 @@ export type edge = {
 };
 type vec2 = { x: number; y: number };
 
- /*
-  * vec2 = [lat, lon]
-  * return: vec2[] = [[lat, lon], ...], i = node number
-  */
+/*
+ * vec2 = [lat, lon]
+ * return: vec2[] = [[lat, lon], ...], i = node number
+ */
 export async function getMapPair(path: string): Promise<vec2[]> {
   const gps: vec2[] = [];
   fs.createReadStream(path)
