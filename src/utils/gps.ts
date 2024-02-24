@@ -1,7 +1,7 @@
 import { Vector2 } from "three";
-
-import * as fs from "fs";
-import { parse } from "@fast-csv/parse";
+import { getGQLClient } from "./gqlClient.ts";
+import { GetMapPairDocument, GetCorrespondDocument } from "../gql/graphql.ts";
+import "dotenv/config.js";
 
 export class GPSWrap {
   gps_origin: Vector2;
@@ -90,20 +90,13 @@ type vec2 = { x: number; y: number };
  * vec2 = [lat, lon]
  * return: vec2[] = [[lat, lon], ...], i = node number
  */
-export async function getMapPair(path: string): Promise<vec2[]> {
+export async function getMapPair(floor_id: number): Promise<vec2[]> {
   const gps: vec2[] = [];
-  fs.createReadStream(path)
-    .pipe(parse())
-    .on("data", (row) => {
-      gps.push({ x: row[0], y: row[1] });
-    })
-    .on("end", () => {
-      console.log(gps);
-    })
-    .on("error", (err) => {
-      console.error(err);
-      throw err;
-    });
+  const client = getGQLClient();
+  const data = await client.request(GetMapPairDocument, { floor: floor_id });
+  data.GuidingNodes.forEach((node) => {
+    gps[node.id] = { x: node.lat, y: node.lon };
+  });
   return gps;
 }
 
@@ -111,27 +104,23 @@ export async function getMapPair(path: string): Promise<vec2[]> {
  * correspond: [from, to], csv = from, to
  * return: [from, to][]
  */
-export async function getCorrespond(path: string): Promise<[number, number][]> {
+export async function getCorrespond(
+  floor_id: number,
+): Promise<[number, number][]> {
   const correspond: [number, number][] = [];
-  fs.createReadStream(path)
-    .pipe(parse())
-    .on("data", (row) => {
-      correspond.push([row[0], row[1]]);
-    })
-    .on("end", () => {
-      console.log(correspond);
-    })
-    .on("error", (err) => {
-      console.error(err);
-      throw err;
-    });
+  const client = getGQLClient();
+  const data = await client.request(GetCorrespondDocument, { floor: floor_id });
+  data.point_relation.forEach((relation) => {
+    correspond.push([relation.rFrom.id, relation.rTo.id]);
+  });
+
   return correspond;
 }
 /*
  * using correspond and gps, return graph
  * graph: edge[from][] = {to, weight}
  */
-export async function toGraph(
+export async function getGraph(
   gps: vec2[],
   correspond: [number, number][],
 ): Promise<edge[][]> {
