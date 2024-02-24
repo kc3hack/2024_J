@@ -3,7 +3,8 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Road } from "./ref/ground/road.ts";
 
 const gltfURL: string = "/public/umeda1.png";
-const linkURL: string = "../floor2/index.html";
+const prevURL: string | null = null;
+const nextURL: string | null = "../floor2/index.html";
 function main() {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;
   const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
@@ -18,14 +19,6 @@ function main() {
   controls.update();
   const scene = new THREE.Scene();
 
-  {
-    const skyColor = 0xb1e1ff; // light blue
-    const groundColor = 0xb97a20; // brownish orange
-    const intensity = 2;
-    const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
-    scene.add(light);
-  }
-
   function render() {
     renderer.render(scene, camera);
 
@@ -36,4 +29,4 @@ function main() {
 }
 
 main();
-Road(gltfURL, linkURL);
+Road(gltfURL, prevURL, nextURL);

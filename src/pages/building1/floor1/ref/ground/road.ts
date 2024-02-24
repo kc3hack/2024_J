@@ -12,7 +12,11 @@ interface Material {
   map?: Texture;
 }
 
-export function Road(gltfURL: string, linkURL: string) {
+export function Road(
+  gltfURL: string,
+  prevURL: string | null,
+  nextURL: string | null,
+) {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;
   const gltfRenderer = new THREE.WebGLRenderer({ antialias: true, canvas });
   const fov = 45;
@@ -26,7 +30,7 @@ export function Road(gltfURL: string, linkURL: string) {
   controls.update();
   const scene = new THREE.Scene();
   drawSkybox(scene);
-  Swipe(linkURL);
+  Swipe(prevURL, nextURL);
   const textureLoader = new THREE.TextureLoader();
   const texture = textureLoader.load(gltfURL);
   {

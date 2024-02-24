@@ -1,4 +1,4 @@
-export function Swipe(PageURL: string) {
+export function Swipe(prevURL: string | null, nextURL: string | null) {
   const minimumDistance = 200;
   let startX = 0;
   let startY = 0;
@@ -13,11 +13,23 @@ export function Swipe(PageURL: string) {
     endY = e.changedTouches[0].pageY;
   });
   window.addEventListener("touchend", () => {
-    const distanceX = Math.abs(endX - startX);
-    const distanceY = Math.abs(endY - startY);
-    if (distanceX > distanceY && distanceX > minimumDistance) {
-      console.log("左右スワイプ");
-      window.location.replace(PageURL);
+    const distanceX = endX - startX;
+    const distanceY = endY - startY;
+    if (
+      distanceX > distanceY &&
+      distanceX > minimumDistance &&
+      prevURL != null
+    ) {
+      console.log("右スワイプ");
+      window.location.replace(prevURL);
+    }
+    if (
+      distanceX < distanceY &&
+      distanceX < minimumDistance * -1 &&
+      nextURL != null
+    ) {
+      console.log("左スワイプ");
+      window.location.replace(nextURL);
     }
   });
 }
