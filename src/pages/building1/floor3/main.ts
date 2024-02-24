@@ -19,6 +19,14 @@ function main() {
 
   const scene = new THREE.Scene();
 
+  {
+    const skyColor = 0xb1e1ff; // light blue
+    const groundColor = 0xb97a20; // brownish orange
+    const intensity = 2;
+    const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+    scene.add(light);
+  }
+
   function render() {
     renderer.render(scene, camera);
 
