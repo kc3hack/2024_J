@@ -31,8 +31,6 @@
   },
   "dependencies": {
     "@graphql-codegen/cli": "^5.0.2",
-    "dotenv": "^16.4.5",
-    "fast-csv": "^5.0.1",
     "graphql": "^16.8.1",
     "graphql-request": "^6.1.0",
     "three": "^0.161.0"
