@@ -4,14 +4,19 @@ import { resizeRendererToDisplaySize } from "../resizeRender.ts";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { objectSetting } from "../objectSetting.ts";
-import {drawSkybox} from "../../../../../utils/Skybox.ts";
+import { drawSkybox } from "../../../../../utils/Skybox.ts";
 import { Object3D, Texture } from "three";
+import { Swipe } from "../../../../../utils/swipe.ts";
 
 interface Material {
   map?: Texture;
 }
 
-export function Road() {
+export function Road(
+  gltfURL: string,
+  prevURL: string | null,
+  nextURL: string | null,
+) {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;
   const gltfRenderer = new THREE.WebGLRenderer({ antialias: true, canvas });
   const fov = 45;
@@ -25,8 +30,9 @@ export function Road() {
   controls.update();
   const scene = new THREE.Scene();
   drawSkybox(scene);
+  Swipe(prevURL, nextURL);
   const textureLoader = new THREE.TextureLoader();
-  const texture = textureLoader.load("/public/umeda1.png");
+  const texture = textureLoader.load(gltfURL);
   {
     objectSetting(scene);
   }
