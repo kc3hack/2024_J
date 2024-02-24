@@ -1,6 +1,6 @@
 import { Vector2 } from "three";
-import {GetCorrespondDocument, GetMapPairDocument} from "../gql/graphql.ts";
-import {buildGQLClient} from "./gqlClient.ts";
+import { GetCorrespondDocument, GetMapPairDocument } from "../gql/graphql.ts";
+import { buildGQLClient } from "./gqlClient.ts";
 
 export class GPSWrap {
   gps_origin: Vector2;
