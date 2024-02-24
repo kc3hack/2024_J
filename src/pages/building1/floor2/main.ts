@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Road } from "../floor1/ref/ground/road.ts";
 const gltfURL = "/public/umeda1.png";
-const linkURL = "../floor2/index.html";
+const linkURL = "../floor1/index.html";
 function main() {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;
   const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
