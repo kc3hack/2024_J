@@ -1,9 +1,8 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { Road } from "./ref/ground/road.ts";
-
-const gltfURL: string = "/public/umeda1.png";
-const linkURL: string = "../floor2/index.html";
+import { Road } from "../floor1/ref/ground/road.ts";
+const gltfURL = "/public/umeda1.png";
+const linkURL = "../floor2/index.html";
 function main() {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;
   const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
@@ -16,6 +15,7 @@ function main() {
   const controls = new OrbitControls(camera, canvas);
   controls.target.set(0, 5, 0);
   controls.update();
+
   const scene = new THREE.Scene();
 
   {
