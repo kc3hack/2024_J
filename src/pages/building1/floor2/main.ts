@@ -1,8 +1,9 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { Road } from "../floor1/ref/ground/road.ts";
-const gltfURL = "/public/umeda1.png";
-const linkURL = "../floor1/index.html";
+const gltfURL = "/public/umeda2.png";
+const prevURL = "../floor1/index.html";
+const nextURL = "../floor3/index.html";
 function main() {
   const canvas = document.querySelector("#c") as HTMLCanvasElement;
   const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
@@ -36,4 +37,4 @@ function main() {
 }
 
 main();
-Road(gltfURL, linkURL);
+Road(gltfURL, prevURL, nextURL);
