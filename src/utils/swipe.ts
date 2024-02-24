@@ -1,4 +1,4 @@
-export function Swipe(prevURL: string, nextURL: string) {
+export function Swipe(prevURL: string | null, nextURL: string | null) {
   const minimumDistance = 200;
   let startX = 0;
   let startY = 0;
