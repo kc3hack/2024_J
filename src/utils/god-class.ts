@@ -1,21 +1,7 @@
 import * as THREE from "three";
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
-import { DataTexture } from "three";
+
 import * as fs from "fs";
 import { parse } from "@fast-csv/parse";
-
-export function drawSkybox(scene: THREE.Scene) {
-  const loader = new RGBELoader();
-  const url = "/skybox/kloppenheim_02_puresky_4k.hdr";
-  const textures = loader.load(url, (texture: DataTexture) => {
-    texture.mapping = THREE.EquirectangularReflectionMapping;
-    texture.minFilter = THREE.LinearFilter;
-    texture.magFilter = THREE.LinearFilter;
-    texture.needsUpdate = false;
-  });
-  scene.background = textures;
-  scene.environment = textures;
-}
 
 export class GPSWrap {
   gps_origin: THREE.Vector2;
@@ -100,10 +86,10 @@ export type edge = {
 };
 type vec2 = { x: number; y: number };
 
-/*
- * vec2 = [lat, lon]
- * return: vec2[] = [[lat, lon], ...], i = node number
- */
+ /*
+  * vec2 = [lat, lon]
+  * return: vec2[] = [[lat, lon], ...], i = node number
+  */
 export async function getMapPair(path: string): Promise<vec2[]> {
   const gps: vec2[] = [];
   fs.createReadStream(path)
@@ -141,9 +127,10 @@ export async function getCorrespond(path: string): Promise<[number, number][]> {
     });
   return correspond;
 }
-
-// using correspond and gps, return graph
-// graph: edge[from][] = {to, weight}
+/*
+ * using correspond and gps, return graph
+ * graph: edge[from][] = {to, weight}
+ */
 export async function toGraph(
   gps: vec2[],
   correspond: [number, number][],
