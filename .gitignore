@@ -721,3 +721,5 @@ src/3d/model/untitled.bin
 src/3d/model/untitled.gltf
 
 src/3d/model/box.bin
+
+src/gql/**

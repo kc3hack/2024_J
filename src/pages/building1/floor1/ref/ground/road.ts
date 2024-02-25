@@ -7,6 +7,7 @@ import { objectSetting } from "../objectSetting.ts";
 import { drawSkybox } from "../../../../../utils/Skybox.ts";
 import { Object3D, Texture } from "three";
 import { Swipe } from "../../../../../utils/swipe.ts";
+import { GPSWrap } from "../../../../../utils/gps.ts";
 
 interface Material {
   map?: Texture;
@@ -56,6 +57,16 @@ export function Road(
       controls.update();
     });
   }
+  const GPS = new GPSWrap(
+    new THREE.Vector2(0, 0),
+    new THREE.Vector2(1, 1),
+    new THREE.Vector2(0, 0),
+    new THREE.Vector2(1, 1),
+  );
+  console.log(GPS);
+  //function userFollowsGPS() {
+  //  const pos = GPS.gpsToMap(GPS.getGPSPos());
+  // }
   function gltfRender() {
     if (resizeRendererToDisplaySize(gltfRenderer)) {
       const canvas = gltfRenderer.domElement;
