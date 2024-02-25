@@ -142,7 +142,10 @@ export async function getGraph(
 
 export async function dijkstra(start: number, end: number): Promise<number[]> {
   const inf: number = 1e18;
-  const graph: edge[][] = []; // todo: get graph
+  const graph: edge[][] = await getGraph(
+    await getMapPair(1),
+    await getCorrespond(1),
+  );
   const dist: number[] = [];
   const from: number[] = [];
 
