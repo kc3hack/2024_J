@@ -1,0 +1,19 @@
+
+query getMapPair($floor: Int!) {
+  GuidingNodes(where: {floor_id: {_eq: $floor}}) {
+    id
+    lat
+    lon
+  }
+}
+
+query getCorrespond($floor: Int) {
+  point_relation(where: {rFrom: {floor_id: {_eq: $floor}}}) {
+    rFrom {
+      id
+    }
+    rTo {
+      id
+    }
+  }
+}
