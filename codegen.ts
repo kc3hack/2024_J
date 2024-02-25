@@ -4,10 +4,11 @@ const config: CodegenConfig = {
   overwrite: true,
   schema: [
     {
-      [process.env.HASURA_GQL_ENDPOINT ?? "http://localhost:4000/v1/graphql"]: {
+      [process.env.VITE_HASURA_GQL_ENDPOINT ??
+      "http://localhost:4000/v1/graphql"]: {
         headers: {
           "x-hasura-admin-secret":
-            process.env.HASURA_GQL_ADMIN_SECRET ?? "no-secret",
+            process.env.VITE_HASURA_GQL_ADMIN_SECRET ?? "no-secret",
         },
       },
     },

@@ -1,6 +1,7 @@
 import { Vector2 } from "three";
 import { GetCorrespondDocument, GetMapPairDocument } from "../gql/graphql.ts";
 import { buildGQLClient } from "./gqlClient.ts";
+import { PriorityQueue } from "./priorityQueue.ts";
 
 export class GPSWrap {
   gps_origin: Vector2;
@@ -137,4 +138,48 @@ export async function getGraph(
     graph[to].push({ to: from, weight });
   }
   return graph;
+}
+
+export async function dijkstra(start: number, end: number): Promise<number[]> {
+  const inf: number = 1e18;
+  const graph: edge[][] = await getGraph(
+    await getMapPair(1),
+    await getCorrespond(1),
+  );
+  const dist: number[] = [];
+  const from: number[] = [];
+
+  for (let i = 0; i < graph.length; i++) {
+    dist[i] = inf;
+    from[i] = inf;
+  }
+
+  const pq = new PriorityQueue();
+  pq.push([0, start, inf]);
+
+  while (pq.size() != 0) {
+    const v = pq.pop();
+    if (dist[v[1]] != inf) continue;
+
+    dist[v[1]] = v[0];
+    from[v[1]] = v[2];
+
+    if (v[1] == end) break;
+
+    for (let i = 0; i < graph[v[1]].length; i++) {
+      if (dist[graph[v[1]][i].to] != inf)
+        pq.push([v[0] + graph[v[1]][i].weight, graph[v[1]][i].to, v[1]]);
+    }
+  }
+
+  const res: number[] = [];
+  let now = end;
+  res.push(now);
+  while (now != start) {
+    now = from[now];
+    res.push(now);
+  }
+
+  res.reverse();
+  return res;
 }

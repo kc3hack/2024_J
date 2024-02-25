@@ -8,12 +8,16 @@ import { drawSkybox } from "../../../../../utils/Skybox.ts";
 import { Object3D, Texture } from "three";
 import { Swipe } from "../../../../../utils/swipe.ts";
 import { GPSWrap } from "../../../../../utils/gps.ts";
+import { getGraph } from "../../../../../utils/gps.ts";
+import { getMapPair } from "../../../../../utils/gps.ts";
+import { getCorrespond } from "../../../../../utils/gps.ts";
+
 
 interface Material {
   map?: Texture;
 }
 
-export function Road(
+export async function Road(
   gltfURL: string,
   prevURL: string | null,
   nextURL: string | null,
@@ -57,23 +61,36 @@ export function Road(
       controls.update();
     });
   }
-  const GPS = new GPSWrap(
-    new THREE.Vector2(0, 0),
-    new THREE.Vector2(1, 1),
-    new THREE.Vector2(0, 0),
-    new THREE.Vector2(1, 1),
+  const gps_origin= new THREE.Vector2(34.99476928327886, 135.74033184232056
   );
-  console.log(GPS);
-  //function userFollowsGPS() {
-  //  const pos = GPS.gpsToMap(GPS.getGPSPos());
-  // }
+  const gps_point =  new THREE.Vector2(34.994700069011465, 135.74017694476333
+  );
+  const map_origin= new THREE.Vector2(0, 0);
+  const map_point = new THREE.Vector2(1, 1)
+  const GPS = new GPSWrap(gps_origin,gps_point,map_origin,map_point);
+
+  const t = await getMapPair(1);
+  const u = await getCorrespond(1);
+  const graph = await getGraph(t, u);
+  console.log(graph);
+  const geometry = new THREE.SphereGeometry(1, 32, 32);
+  const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+  const sphere = new THREE.Mesh(geometry, material);
+  scene.add(sphere);
+  sphere.position.y = 1;
+
+  function userFollowsGPS() {
+    const pos = GPS.gpsToMap(GPS.getGPSPos());
+    sphere.position.x = pos.x;
+    sphere.position.y = pos.y;
+  }
   function gltfRender() {
     if (resizeRendererToDisplaySize(gltfRenderer)) {
       const canvas = gltfRenderer.domElement;
       camera.aspect = canvas.clientWidth / canvas.clientHeight;
       camera.updateProjectionMatrix();
     }
-
+    userFollowsGPS();
     gltfRenderer.render(scene, camera);
 
     requestAnimationFrame(gltfRender);
